@@ -16,7 +16,7 @@ $(document).ready(function() {
       squares=Array(1350).fill(null);
       $(".square").text("").removeAttr("disabled");
       isXNext=true;
-      $(".score").text("");
+      $(".game").text("Next player: X");
     });
 
     function changeSquare(t){
@@ -24,7 +24,8 @@ $(document).ready(function() {
       t.attr("disabled","disabled");
       squares[t.attr("id")]=t.text();
       for (let i = 0; i < squares.length; i++) {
-        if ((squares[i] === "X" || squares[i] === "O") &&
+        if((squares[i] === "X" || squares[i] === "O") &&
+          ((i+1)%50 != 0 && (i+2)%50 != 0 && (i+3)%50 != 0 && (i+4)%50 != 0) &&
           ((squares[i] === squares[i+1] && squares[i] === squares[i+2] && squares[i] === squares[i+3] && squares[i] === squares[i+4]) || 
           (squares[i] === squares[i+50] && squares[i] === squares[i+100] && squares[i] === squares[i+150] && squares[i] === squares[i+200])
           || (squares[i] === squares[i+51] && squares[i] === squares[i+102] && squares[i] === squares[i+153] && squares[i] === squares[i+204])
@@ -34,6 +35,7 @@ $(document).ready(function() {
         }
       }
     }
+
     $(".square").click(function(){
       if(isXNext){
         $(this).text("X");
@@ -43,10 +45,15 @@ $(document).ready(function() {
         $(this).text("O");
         score = changeSquare($(this));
       }
+
       if(score){
-        $(".score").text("Winner: " + score);
+        $(".game").text("Winner: " + score);
         $(".square").attr("disabled","disabled");
       }
+      else{
+        $(".game").text("Next player: " + (isXNext ? "X" : "O"));
+      }
+
       console.log($(this).attr("id"),squares[$(this).attr("id")]);
     });
   });
