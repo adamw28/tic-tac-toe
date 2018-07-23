@@ -12,7 +12,7 @@ $(document).ready(function() {
     let isXNext=true;
     let score;
 
-    $(".start").click(function(){
+    $(".restart").click(function(){
       squares=Array(1350).fill(null);
       $(".square").text("").removeAttr("disabled");
       isXNext=true;
